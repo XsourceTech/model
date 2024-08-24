@@ -13,7 +13,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the entire application code into the container
 COPY chat_bot ./chat_bot
 
-RUN pip install --no-index --find-links=./chat_bot/chatbot_Xsource-1.1.0-py3-none-any.whl
+RUN pip install --find-links=./chat_bot/chatbot_Xsource-1.1.0-py3-none-any.whl
 
 # Copy the entire application code into the container
 ARG ENVIRONMENT
