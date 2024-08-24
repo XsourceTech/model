@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Body
-from app.modules.chatbot import Chatbot
+from chatbot_Xsource import chatbot
 
 
 chatbot_app = FastAPI(
@@ -14,7 +14,7 @@ chatbot_app = FastAPI(
     ],
 )
 
-chatbot = Chatbot()
+chatbot = chatbot.Chatbot()
 
 @chatbot_app.post("/receive_msg", description="Answer the user's input message.")
 async def receive_message(usr_msg: str = Body(...)):
