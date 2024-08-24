@@ -12,7 +12,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the entire application code into the container
 COPY chat_bot/app ./chat_bot/app
-COPY chat_bot/config ./chat_bot/config
+
+# Install wheel chatbot_Xsource
+RUN pip install ./chat_bot/app/chatbot_Xsource-1.1.0-py3-none-any.whl
 
 # Set working directory for running the application
 WORKDIR /usr/src/app/chat_bot
