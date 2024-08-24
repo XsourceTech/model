@@ -11,8 +11,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the entire application code into the container
-# COPY chat_bot/app ./chat_bot/app
-COPY chat_bot ./chat_bot
+COPY chat_bot/app ./chat_bot/app
 
 RUN pip install --use-wheel --no-index --find-links=./chat_bot/chatbot_Xsource-1.1.0-py3-none-any.whl
 
