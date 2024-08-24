@@ -2,3 +2,4 @@ fastapi==0.112.1
 openai==1.42.0
 python-dotenv==1.0.1
 tiktoken==0.7.0
+./chat_bot/chatbot_Xsource-1.1.0-py3-none-any.whl

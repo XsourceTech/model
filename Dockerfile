@@ -7,14 +7,16 @@ WORKDIR /usr/src/app
 # Copy the requirements file into the container
 COPY requirements.txt .
 
-# Install Python dependencies from the requirements file
-RUN pip install --no-cache-dir -r requirements.txt
+# # Install Python dependencies from the requirements file
+# RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the entire application code into the container
 COPY chat_bot/app ./chat_bot/app
 
 # RUN pip install --use-wheel --no-index --find-links=./chat_bot/chatbot_Xsource-1.1.0-py3-none-any.whl
-RUN pip install ./chat_bot/chatbot_Xsource-1.1.0-py3-none-any.whl
+
+# Install Python dependencies from the requirements file
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the entire application code into the container
 ARG ENVIRONMENT
