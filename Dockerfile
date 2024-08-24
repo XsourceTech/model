@@ -13,14 +13,14 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the entire application code into the container
 COPY chat_bot/app ./chat_bot/app
 
-# Install wheel chatbot_Xsource
-RUN pip install ./chat_bot/app/chatbot_Xsource-1.1.0-py3-none-any.whl
+RUN pip install --use-wheel --no-index --find-links=./chat_bot/chatbot_Xsource-1.1.0-py3-none-any.whl
+
+# Copy the entire application code into the container
+ARG ENVIRONMENNT
+COPY .env.${ENVIRONMENT} .env
 
 # Set working directory for running the application
 WORKDIR /usr/src/app/chat_bot
-
-# Set environment variables
-ENV OPEN_API_KEY=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
 
 # Make sure the script is executable
 RUN chmod +x ./app/main.py
