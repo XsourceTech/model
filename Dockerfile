@@ -23,11 +23,8 @@ RUN export $(cat .env | xargs)
 # Set working directory for running the application
 WORKDIR /usr/src/app/chat_bot
 
-# Make sure the script is executable
-RUN chmod +x ./app/main.py
-
-# Define the command to run your application
-CMD [ "python", "./app/main.py" ]
-
 # Expose port 8080 for the application
 EXPOSE 8080
+
+# Define the command to run your application
+CMD [ "uvicorn", "app.main:chatbot_app", "--host", "0.0.0.0", "--port", "8080"]
