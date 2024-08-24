@@ -18,6 +18,7 @@ RUN pip install ./chat_bot/chatbot_Xsource-1.1.0-py3-none-any.whl
 # Copy the entire application code into the container
 ARG ENVIRONMENT
 COPY .env.${ENVIRONMENT} .env
+RUN export $(cat .env | xargs)
 
 # Set working directory for running the application
 WORKDIR /usr/src/app/chat_bot
