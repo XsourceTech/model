@@ -16,7 +16,7 @@ COPY chat_bot/app ./chat_bot/app
 RUN pip install --use-wheel --no-index --find-links=./chat_bot/chatbot_Xsource-1.1.0-py3-none-any.whl
 
 # Copy the entire application code into the container
-ARG ENVIRONMENNT
+ARG ENVIRONMENT
 COPY .env.${ENVIRONMENT} .env
 
 # Set working directory for running the application
