@@ -1,5 +1,8 @@
 from fastapi import FastAPI, Body
 from chatbot_Xsource import chatbot
+import uvicorn
+from dotenv import load_dotenv
+load_dotenv()
 
 
 chatbot_app = FastAPI(
@@ -36,5 +39,9 @@ async def summarize_message():
     """
     chatbot_msg = chatbot.summarize_general_information()
     return chatbot_msg
+
+
+if __name__ == "__main__":
+    uvicorn.run("main:chatbot_app", port=8080, reload=True)
 
 
