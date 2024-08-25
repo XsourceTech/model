@@ -41,9 +41,9 @@ async def summarize_message():
     return chatbot_msg
 
 
-@chatbot_app.get("/")
+@chatbot_app.get("/api/v1/health")
 async def root():
-    return {"message": "Welcome to Xsource paper-writing chatbot!"}
+    return {"status": "healthy"}
 
 
 if __name__ == "__main__":
