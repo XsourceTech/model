@@ -41,6 +41,11 @@ async def summarize_message():
     return chatbot_msg
 
 
+@chatbot_app.get("/")
+async def root():
+    return {"message": "Welcome to Xsource paper-writing chatbot!"}
+
+
 if __name__ == "__main__":
     uvicorn.run("main:chatbot_app", port=8080, reload=True)
 
