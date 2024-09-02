@@ -4,7 +4,6 @@ import bot_model
 import uvicorn
 from get_key import get_openai_key
 
-get_openai_key()
 
 chatbot_app = FastAPI(
     title="chatbot Service API",
@@ -60,5 +59,6 @@ async def health():
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:chatbot_app", port=8050, reload=True)
+    get_openai_key()
+    uvicorn.run("main:chatbot_app", host="0.0.0.0", port=8050, reload=True)
 

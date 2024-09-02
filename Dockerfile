@@ -16,10 +16,13 @@ COPY chat_bot ./chat_bot
 RUN pip install ./chat_bot/chatbot_Xsource-1.2.0-py3-none-any.whl
 
 # Set working directory for running the application
-WORKDIR /usr/src/app/chat_bot
-
-# Expose port 8080 for the application
-EXPOSE 8050
+WORKDIR /usr/src/app/chat_bot/app
 
 # Define the command to run your application
-CMD [ "uvicorn", "app.main:chatbot_app", "--host", "0.0.0.0", "--port", "8050"]
+RUN chmod +x main.py
+
+# Define the command to run your application
+CMD [ "python", "main.py" ]
+
+# Expose port 8050 for the application
+EXPOSE 8050
