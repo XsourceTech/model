@@ -4,3 +4,5 @@ fastapi==0.111.1
 openai==1.35.13
 python-dotenv==1.0.1
 tiktoken==0.7.0
+azure-identity==1.7.1
+azure-keyvault-secrets==4.2.0
