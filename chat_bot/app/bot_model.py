@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from enum import Enum
 
 
 class Message(BaseModel):
@@ -9,4 +10,14 @@ class Message(BaseModel):
 class BotMemory(BaseModel):
     bot_memory: list[Message]
 
+
+class FlagEnum(str, Enum):
+    major = 'major'
+    field = 'field'
+    topic = 'topic'
+    title = 'title'
+
+
+class Flag(BaseModel):
+    flag: FlagEnum
 

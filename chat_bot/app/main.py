@@ -1,6 +1,6 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from chatbot_Xsource import chatbot
-import bot_model
+from bot_model import *
 import uvicorn
 from get_key import get_openai_key
 
@@ -8,7 +8,7 @@ from get_key import get_openai_key
 chatbot_app = FastAPI(
     title="chatbot Service API",
     description="API for general information chatbot.",
-    version="1.2.0",
+    version="1.2.1",
     openapi_tags=[
         {
             "name": "Chatbot",
@@ -18,36 +18,25 @@ chatbot_app = FastAPI(
 )
 
 
-@chatbot_app.post("/reply_msg_major", response_model=bot_model.BotMemory, description="Answer the user's input message for major.")
-async def reply_msg_major(msg: bot_model.BotMemory):
-    bot = chatbot.Chatbot(msg.bot_memory)
-    chatbot_memory_new = bot.generate_response_for_major()
-    return {'bot_memory': chatbot_memory_new}
-
-
-@chatbot_app.post("/reply_msg_field", response_model=bot_model.BotMemory, description="Answer the user's input message for field.")
-async def reply_msg_field(msg: bot_model.BotMemory):
-    bot = chatbot.Chatbot(msg.bot_memory)
-    chatbot_memory_new = bot.generate_response_for_field()
-    return {'bot_memory': chatbot_memory_new}
-
-
-@chatbot_app.post("/reply_msg_topic", response_model=bot_model.BotMemory, description="Answer the user's input message for topic.")
-async def reply_msg_topic(msg: bot_model.BotMemory):
-    bot = chatbot.Chatbot(msg.bot_memory)
-    chatbot_memory_new = bot.generate_response_for_topic()
-    return {'bot_memory': chatbot_memory_new}
-
-
-@chatbot_app.post("/reply_msg_title", response_model=bot_model.BotMemory, description="Answer the user's input message for title.")
-async def reply_msg_title(msg: bot_model.BotMemory):
-    bot = chatbot.Chatbot(msg.bot_memory)
-    chatbot_memory_new = bot.generate_response_for_title()
+@chatbot_app.post("/reply_msg", response_model=BotMemory, description="Answer the user's input message for major.")
+async def reply_msg(memory: BotMemory, flag: Flag):
+    bot = chatbot.Chatbot(memory.bot_memory)
+    flag = flag.flag
+    if flag == FlagEnum.major:
+        chatbot_memory_new = bot.generate_response_for_major()
+    elif flag == FlagEnum.field:
+        chatbot_memory_new = bot.generate_response_for_field()
+    elif flag == FlagEnum.topic:
+        chatbot_memory_new = bot.generate_response_for_topic()
+    elif flag == FlagEnum.title:
+        chatbot_memory_new = bot.generate_response_for_title()
+    else:
+        raise HTTPException(status_code=422, detail="Invalid flag")
     return {'bot_memory': chatbot_memory_new}
 
 
 @chatbot_app.post("/summarize_info", description="Summarize user's general information")
-async def summarize_info(memory: bot_model.BotMemory):
+async def summarize_info(memory: BotMemory):
     bot = chatbot.Chatbot(memory.bot_memory)
     chatbot_msg = bot.get_summary()
     chatbot_msg_json = eval(chatbot_msg)
