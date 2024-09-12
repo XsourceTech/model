@@ -11,13 +11,28 @@ class BotMemory(BaseModel):
     bot_memory: list[Message]
 
 
-class FlagEnum(str, Enum):
-    major = 'major'
-    field = 'field'
-    topic = 'topic'
-    title = 'title'
+class LevelEnum(str, Enum):
+    MAJOR = 'major'
+    FIELD = 'field'
+    TOPIC = 'topic'
+    TITLE = 'title'
 
 
-class Flag(BaseModel):
-    flag: FlagEnum
+class Level(BaseModel):
+    level: LevelEnum
+
+
+class PartEnum(str, Enum):
+    ARTICLE = 'article'
+    ABSTRACT = 'abstract'
+    INTRODUCTION = 'introduction'
+    LITERATURE_REVIEW = 'literature_review'
+    METHODOLOGY = 'methodology'
+    RESULTS = 'results'
+    CONCLUSION = 'conclusion'
+    REFERENCES = 'references'
+
+
+class Part(BaseModel):
+    part: PartEnum
 
