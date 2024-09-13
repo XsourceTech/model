@@ -13,8 +13,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the entire application code into the container
 COPY chat_bot ./chat_bot
 
-RUN pip uninstall chatbot_Xsource
-
 RUN pip install ./chat_bot/chatbot_Xsource-1.3.0-py3-none-any.whl
 
 # Set working directory for running the application

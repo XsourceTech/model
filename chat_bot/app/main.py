@@ -51,5 +51,5 @@ async def summarize_info(bot_memory: BotMemory, part: Part):
 
 if __name__ == "__main__":
     get_openai_key()
-    uvicorn.run("main:chatbot_app", host = "0.0.0.0", port=8050, reload=True)
+    uvicorn.run("main:chatbot_app", host="0.0.0.0", port=8050, reload=True)
 
