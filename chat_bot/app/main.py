@@ -3,6 +3,7 @@ from chatbot_Xsource import chatbot
 from bot_model import *
 import uvicorn
 from get_key import get_openai_key
+import json
 
 
 chatbot_app = FastAPI(
@@ -42,7 +43,7 @@ async def summarize_info(bot_memory: BotMemory, part: Part):
     if part.part == PartEnum.ARTICLE:
         bot = chatbot.Chatbot(bot_memory.bot_memory)
         chatbot_msg = bot.get_summary()
-        chatbot_msg_json = eval(chatbot_msg)
+        chatbot_msg_json = json.loads(chatbot_msg)
     else:
         raise HTTPException(status_code=422, detail="Invalid part name")
     return chatbot_msg_json
