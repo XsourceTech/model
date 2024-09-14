@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Body
 from chatbot_Xsource import chatbot
 from bot_model import *
 import uvicorn
@@ -20,16 +20,16 @@ chatbot_app = FastAPI(
 
 
 @chatbot_app.post("/reply_msg", response_model=BotMemory, description="Answer the user's input message for major.")
-async def reply_msg(bot_memory: BotMemory, level: Level, part: Part):
-    bot = chatbot.Chatbot(bot_memory.bot_memory)
-    if part.part == PartEnum.ARTICLE:
-        if level.level == LevelEnum.MAJOR:
+async def reply_msg(bot_memory: list[Message] = Body(...), level: str = Body(...), part: str = Body(...)):
+    bot = chatbot.Chatbot(bot_memory)
+    if part == "article":
+        if level == "major":
             chatbot_memory_new = bot.generate_response_for_major()
-        elif level.level == LevelEnum.FIELD:
+        elif level == "field":
             chatbot_memory_new = bot.generate_response_for_field()
-        elif level.level == LevelEnum.TOPIC:
+        elif level == "topic":
             chatbot_memory_new = bot.generate_response_for_topic()
-        elif level.level == LevelEnum.TITLE:
+        elif level == "title":
             chatbot_memory_new = bot.generate_response_for_title()
         else:
             raise HTTPException(status_code=422, detail="Invalid level name")
@@ -39,9 +39,9 @@ async def reply_msg(bot_memory: BotMemory, level: Level, part: Part):
 
 
 @chatbot_app.post("/summarize_info", description="Summarize user's general information")
-async def summarize_info(bot_memory: BotMemory, part: Part):
-    if part.part == PartEnum.ARTICLE:
-        bot = chatbot.Chatbot(bot_memory.bot_memory)
+async def summarize_info(bot_memory: list[Message] = Body(...), part: str = Body(...)):
+    if part == "article":
+        bot = chatbot.Chatbot(bot_memory)
         chatbot_msg = bot.get_summary()
         chatbot_msg_json = json.loads(chatbot_msg)
     else:
